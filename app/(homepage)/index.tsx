@@ -1,8 +1,9 @@
+import { getContact } from "@/services/contact.service";
+import { useQuery } from "@tanstack/react-query";
 import {
 	Avatar,
 	Button,
 	Divider,
-	Icon,
 	Layout,
 	List,
 	ListItem,
@@ -10,23 +11,21 @@ import {
 	TopNavigation,
 } from "@ui-kitten/components";
 import { Link } from "expo-router";
-import { View } from "react-native";
 
-const ListItemDivider = () => (
+const ListItemDivider = (props: Contact) => (
 	<ListItem
-		title="Jenius Contact App"
-		description="Small Description"
-		accessoryLeft={
-			<Avatar
-				src="https://robohash.org/andreepratama27"
-				size="200px"
-				appearance=""
-			/>
-		}
+		title={[props.firstName, props.lastName].join(" ")}
+		description={`Age: ${props.age}`}
+		// accessoryLeft={<Avatar src={props.photo} size="200px" appearance="round" />}
 	/>
 );
 
 export default function HomepageScreen() {
+	const { data } = useQuery({
+		queryKey: ["get-contacts"],
+		queryFn: getContact,
+	});
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			<TopNavigation
@@ -41,10 +40,13 @@ export default function HomepageScreen() {
 				style={{ paddingLeft: 14 }}
 			/>
 			<Divider />
+
 			<List
-				data={new Array(10).fill("")}
+				data={data?.data}
 				ItemSeparatorComponent={Divider}
-				renderItem={() => <ListItemDivider />}
+				renderItem={({ item }) => {
+					return <ListItemDivider {...item} />;
+				}}
 			/>
 		</Layout>
 	);
