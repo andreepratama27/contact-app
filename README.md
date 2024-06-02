@@ -31,22 +31,22 @@ I still not completing the unit test, but will completed it later
 ## Screenshoot
 
 - Home Page
-![Home Page](https://github.com/andreepratama27/contact-app/blob/main/screnshots/home-page.PNG)
+![Home Page](https://github.com/andreepratama27/contact-app/blob/main/screenshots/home-page.PNG)
 
 - Detail Contact Page
-![Detail Contact Page](https://github.com/andreepratama27/contact-app/blob/main/screnshots/detail-page.PNG)
+![Detail Contact Page](https://github.com/andreepratama27/contact-app/blob/main/screenshots/detail-page.PNG)
 
 - Detail Contact Page (Favorited)
-![Detail Contact Favorited Page](https://github.com/andreepratama27/contact-app/blob/main/screnshots/detail-page-favorited.PNG)
+![Detail Contact Favorited Page](https://github.com/andreepratama27/contact-app/blob/main/screenshots/detail-page-favorited.PNG)
 
 - Create Contact Page
-![Create Contact app](https://github.com/andreepratama27/contact-app/blob/main/screnshots/create-page.PNG)
+![Create Contact app](https://github.com/andreepratama27/contact-app/blob/main/screenshots/create-page.PNG)
 
 - Edit Contact Page
-![Edit Contact Page](https://github.com/andreepratama27/contact-app/blob/main/screnshots/edit-page.PNG)
+![Edit Contact Page](https://github.com/andreepratama27/contact-app/blob/main/screenshots/edit-page.PNG)
 
 - Favorited Page
-![Favorite Page](https://github.com/andreepratama27/contact-app/blob/main/screnshots/favorite-page.PNG)
+![Favorite Page](https://github.com/andreepratama27/contact-app/blob/main/screenshots/favorite-page.PNG)
 
 ## How to Install
 
