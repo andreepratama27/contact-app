@@ -21,4 +21,25 @@ const postContact = async (payload: Omit<Contact, "id">) => {
 	}
 };
 
-export { getContact, postContact };
+const updateContact = async (payload: Partial<Contact>) => {
+	try {
+		const { id, ...restPayload } = payload;
+		const response = await axios.put(`/contact/${id}`, restPayload);
+		return response.data;
+	} catch (error) {
+		// biome-ignore lint/complexity/noUselessCatch: <explanation>
+		throw error;
+	}
+};
+
+const deleteContact = async (id: string) => {
+	try {
+		const response = await axios.delete(`/contact/${id}`);
+		return response.data;
+	} catch (error) {
+		// biome-ignore lint/complexity/noUselessCatch: <explanation>
+		throw error;
+	}
+};
+
+export { getContact, postContact, updateContact, deleteContact };
