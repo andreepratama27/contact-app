@@ -8,17 +8,28 @@ import "react-native-reanimated";
 
 /* UI-Kitten */
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider, IconRegistry, Text } from "@ui-kitten/components";
+import {
+	ApplicationProvider,
+	Icon,
+	IconRegistry,
+	Text,
+} from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 /* Router Setup */
-import { NavigationContainer, NavigationProp } from "@react-navigation/native";
+import {
+	NavigationContainer,
+	type NavigationProp,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as Linking from "expo-linking";
 
 import Home from "./home";
 import CreateContact from "./create-contact";
 import Detail from "./detail";
+import Favorite from "./favorite";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -30,6 +41,7 @@ export type RootStackParamList = Record<ScreenName[number], undefined>;
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
 const prefix = Linking.createURL("/");
 
 export default function RootLayout() {
@@ -63,23 +75,40 @@ export default function RootLayout() {
 						linking={linking}
 						fallback={<Text>Loading Screen...</Text>}
 					>
-						<Stack.Navigator>
-							<Stack.Screen
+						<Tab.Navigator backBehavior="initialRoute">
+							<Tab.Screen
 								name="home"
 								component={Home}
-								options={{ headerShown: false }}
+								options={{
+									headerShown: false,
+									tabBarLabel: "Home",
+									tabBarIcon: ({ color, size }) => (
+										<MaterialCommunityIcons
+											name="home"
+											size={size}
+											color={color}
+										/>
+									),
+								}}
 							/>
-							<Stack.Screen
-								name="create-contact"
-								component={CreateContact}
-								options={{ headerShown: false }}
+
+							<Tab.Screen
+								name="favorite"
+								component={Favorite}
+								options={{
+									headerShown: false,
+
+									tabBarLabel: "Favorite",
+									tabBarIcon: ({ color, size }) => (
+										<MaterialCommunityIcons
+											color={color}
+											name="star"
+											size={size}
+										/>
+									),
+								}}
 							/>
-							<Stack.Screen
-								name="detail-contact"
-								component={Detail}
-								options={{ headerShown: false }}
-							/>
-						</Stack.Navigator>
+						</Tab.Navigator>
 					</NavigationContainer>
 				</QueryClientProvider>
 			</ApplicationProvider>

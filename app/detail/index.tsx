@@ -1,4 +1,5 @@
 import { BackAction } from "@/components/navigation/BackAction";
+import { favoriteStore } from "@/store/favoriteStore";
 import {
 	Button,
 	Icon,
@@ -7,11 +8,26 @@ import {
 	TopNavigation,
 } from "@ui-kitten/components";
 import { Image, View } from "react-native";
+import { useStore } from "zustand";
 
 export default function Detail({ navigation, route }: NavigationProps) {
 	const {
 		params: { item },
 	} = route;
+
+	const useFavoriteStore = useStore(favoriteStore);
+
+	const handleFavorite = () => {
+		useFavoriteStore.setFavorite(item);
+	};
+
+	const removeFavorite = () => {
+		useFavoriteStore.removeFavorite(item?.id);
+	};
+
+	const isFavorited = useFavoriteStore.contacts.find(
+		(contactItem) => contactItem.id === item?.id,
+	);
 
 	return (
 		<Layout style={{ flex: 1 }}>
@@ -23,7 +39,7 @@ export default function Detail({ navigation, route }: NavigationProps) {
 						<Button
 							size="tiny"
 							appearance="ghost"
-							onPress={() => navigation.navigate("create-contact", { item })}
+							onPress={() => navigation.navigate("CreateContact", { item })}
 						>
 							✏ Edit Contact️
 						</Button>
@@ -57,13 +73,27 @@ export default function Detail({ navigation, route }: NavigationProps) {
 							Age: {item.age}
 						</Text>
 
-						<Button
-							size="tiny"
-							style={{ marginTop: 14 }}
-							accessoryLeft={(props) => <Icon {...props} name="star" />}
-						>
-							Set as Favorite
-						</Button>
+						{isFavorited ? (
+							<Button
+								size="tiny"
+								style={{ marginTop: 14 }}
+								accessoryLeft={(props) => <Icon {...props} name="trash" />}
+								status="danger"
+								appearance="outline"
+								onPress={removeFavorite}
+							>
+								Remove from Favorite
+							</Button>
+						) : (
+							<Button
+								size="tiny"
+								style={{ marginTop: 14 }}
+								accessoryLeft={(props) => <Icon {...props} name="star" />}
+								onPress={handleFavorite}
+							>
+								Set as Favorite
+							</Button>
+						)}
 					</View>
 				</View>
 			</View>
