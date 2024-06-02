@@ -7,6 +7,6 @@ interface Contact {
 	id: string;
 	firstName: string;
 	lastName: string;
-	age: number;
+	age: number | string;
 	photo: string;
 }

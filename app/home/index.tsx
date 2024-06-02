@@ -1,7 +1,7 @@
 import { getContact } from "@/services/contact.service";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useQuery } from "@tanstack/react-query";
 import {
-	Avatar,
 	Button,
 	Divider,
 	Layout,
@@ -20,10 +20,12 @@ const ListItemDivider = (props: Contact) => (
 	/>
 );
 
-export default function HomepageScreen() {
+export default function Home({ navigation }: NavigationProps) {
 	const { data } = useQuery({
 		queryKey: ["get-contacts"],
 		queryFn: getContact,
+		refetchOnWindowFocus: "always",
+		refetchOnMount: "always",
 	});
 
 	return (
@@ -31,11 +33,13 @@ export default function HomepageScreen() {
 			<TopNavigation
 				title={<Text>Jenius Contact App</Text>}
 				accessoryRight={() => (
-					<Link href="/create-contact" asChild>
-						<Button size="tiny" appearance="ghost">
-							+ Create New Contact
-						</Button>
-					</Link>
+					<Button
+						size="tiny"
+						appearance="ghost"
+						onPress={() => navigation.navigate("create-contact")}
+					>
+						+ Create New Contact
+					</Button>
 				)}
 				style={{ paddingLeft: 14 }}
 			/>
